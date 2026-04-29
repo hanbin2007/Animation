@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>带电粒子在匀强电磁场中的运动 · 第(3)问 3D 交互演示</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+    crossorigin="anonymous"
+  />
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="canvas-container"></div>
+
+  <header id="header">
+    <div class="title">
+      <h1>带电粒子在匀强电磁场中的运动</h1>
+      <p class="subtitle">第 (3) 问 · 荧光屏上亮线长度 <em>L</em> 的 3D 交互演示</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost" id="btn-toggle-info" title="题目信息">题目</button>
+      <button class="btn-ghost" id="btn-toggle-math" title="推导过程">推导</button>
+      <button class="btn-ghost" id="btn-toggle-help" title="操作说明">说明</button>
+    </div>
+  </header>
+
+  <aside id="info-panel" class="panel">
+    <header class="panel-header">
+      <h2>题目第 (3) 问</h2>
+      <button class="btn-close" data-target="info-panel">×</button>
+    </header>
+    <div class="panel-body">
+      <p>在直角坐标系 <em>Oxyz</em> 整个空间中，沿 +<em>z</em> 方向有匀强电场 <em>E</em>
+         和匀强磁场 <em>B</em>。粒子源置于原点 <em>O</em>，
+         向 <em>xOy</em> 平面第一象限内各方向均匀发射粒子。</p>
+      <ul class="condition-list">
+        <li>质量 <em>m</em>，电荷量 <em>q</em>（<em>q</em> &gt; 0）</li>
+        <li>初速率均为 <em>v</em><sub>0</sub></li>
+        <li>不计重力与粒子相互作用</li>
+      </ul>
+      <p class="formula-block">
+        $$E = \dfrac{2mv_0^2}{dq},\qquad B = \dfrac{2\pi m v_0}{3dq}$$
+      </p>
+      <p>在 <em>z</em> = +<em>d</em>、<em>y</em> &gt; 0 的空间内有一足够大荧光屏，
+         求粒子打在荧光屏上形成的亮线长度 <em>L</em>。</p>
+    </div>
+  </aside>
+
+  <aside id="math-panel" class="panel">
+    <header class="panel-header">
+      <h2>解析过程</h2>
+      <button class="btn-close" data-target="math-panel">×</button>
+    </header>
+    <div class="panel-body" id="math-body">
+      <section class="step" data-step="1">
+        <h3><span class="step-num">1</span>运动分解</h3>
+        <p><em>z</em> 方向：仅受电场力作用，匀加速直线运动。</p>
+        <p>$$a = \dfrac{qE}{m} = \dfrac{2v_0^2}{d}$$</p>
+        <p><em>xOy</em> 平面：仅受洛伦兹力作用，做匀速圆周运动（初速度全部在 <em>xOy</em> 平面）。</p>
+      </section>
+
+      <section class="step" data-step="2">
+        <h3><span class="step-num">2</span>到屏时间</h3>
+        <p>由 $d = \tfrac{1}{2}at^2$ 得</p>
+        <p>$$t = \dfrac{d}{v_0}$$</p>
+      </section>
+
+      <section class="step" data-step="3">
+        <h3><span class="step-num">3</span>圆周运动参数</h3>
+        <p>$$r = \dfrac{mv_0}{qB} = \dfrac{3d}{2\pi}$$</p>
+        <p>$$T = \dfrac{2\pi m}{qB} = \dfrac{3d}{v_0}$$</p>
+        <p>每个粒子在 <em>xOy</em> 平面内转过</p>
+        <p>$$\dfrac{t}{T} = \dfrac{1}{3}\;\text{周},\quad \omega t = \dfrac{2\pi}{3}$$</p>
+      </section>
+
+      <section class="step" data-step="4">
+        <h3><span class="step-num">4</span>落点轨迹</h3>
+        <p>设初速度方向与 +<em>x</em> 夹角为 <em>α</em>（<em>α</em> ∈ [0, π/2]），化简得粒子打屏时坐标</p>
+        <p>$$x = \sqrt{3}\,r\sin\!\left(\alpha + \tfrac{\pi}{6}\right),\quad
+              y = \sqrt{3}\,r\sin\!\left(\alpha - \tfrac{\pi}{3}\right)$$</p>
+        <p>因此 $x^2 + y^2 = 3r^2$，所有落点均在 <em>z</em> = <em>d</em> 平面上半径为
+           $\sqrt{3}\,r$ 的圆上。</p>
+      </section>
+
+      <section class="step" data-step="5">
+        <h3><span class="step-num">5</span>屏上有效区间</h3>
+        <p>荧光屏只覆盖 <em>y</em> &gt; 0：要求 $\sin(\alpha-\tfrac{\pi}{3})>0$，
+           即 <em>α</em> ∈ (π/3, π/2]。</p>
+        <p>此时落点在该圆上对应的圆心角范围为</p>
+        <p>$$\Delta\theta = \dfrac{\pi}{6}$$</p>
+      </section>
+
+      <section class="step result" data-step="6">
+        <h3><span class="step-num">✓</span>亮线长度</h3>
+        <p>$$L = \sqrt{3}\,r \cdot \Delta\theta
+              = \sqrt{3}\cdot\dfrac{3d}{2\pi}\cdot\dfrac{\pi}{6}
+              = \boxed{\dfrac{\sqrt{3}}{4}\,d}$$</p>
+      </section>
+    </div>
+  </aside>
+
+  <aside id="help-panel" class="panel">
+    <header class="panel-header">
+      <h2>操作说明</h2>
+      <button class="btn-close" data-target="help-panel">×</button>
+    </header>
+    <div class="panel-body">
+      <ul class="help-list">
+        <li><strong>左键拖拽</strong>：旋转视角</li>
+        <li><strong>右键拖拽</strong>：平移视角</li>
+        <li><strong>滚轮</strong>：缩放</li>
+        <li><strong>时间滑块</strong>：手动控制粒子飞行进度</li>
+        <li><strong>粒子数</strong>：调整同时演示的粒子条数</li>
+        <li><strong>视角按钮</strong>：切换正交主视图（俯视 / 正视 / 侧视）</li>
+        <li><strong>单粒子聚焦</strong>：选中后只显示选定 <em>α</em> 的轨道与受力</li>
+      </ul>
+    </div>
+  </aside>
+
+  <div id="hud">
+    <div class="hud-row">
+      <span class="hud-label">归一化时间</span>
+      <span class="hud-val" id="hud-time">0.000</span>
+      <span class="hud-unit">/ d/v₀</span>
+    </div>
+    <div class="hud-row">
+      <span class="hud-label">已转过角</span>
+      <span class="hud-val" id="hud-angle">0.0°</span>
+      <span class="hud-unit">/ 120°</span>
+    </div>
+    <div class="hud-row">
+      <span class="hud-label">屏上亮线</span>
+      <span class="hud-val" id="hud-length">0.000</span>
+      <span class="hud-unit">d</span>
+    </div>
+    <div class="hud-row hud-target">
+      <span class="hud-label">目标值</span>
+      <span class="hud-val">L = √3 / 4 · d ≈ 0.433 d</span>
+    </div>
+  </div>
+
+  <footer id="controls">
+    <div class="ctl-group">
+      <button id="btn-play" class="btn-primary" title="播放/暂停">▶</button>
+      <button id="btn-reset" class="btn-secondary" title="重置">⟲</button>
+    </div>
+
+    <div class="ctl-group ctl-slider">
+      <label>时间 <span id="lbl-time">0%</span></label>
+      <input type="range" id="slider-time" min="0" max="1000" value="0" />
+    </div>
+
+    <div class="ctl-group ctl-slider">
+      <label>速度 <span id="lbl-speed">1.0×</span></label>
+      <input type="range" id="slider-speed" min="10" max="300" value="80" />
+    </div>
+
+    <div class="ctl-group ctl-slider">
+      <label>粒子数 <span id="lbl-count">31</span></label>
+      <input type="range" id="slider-count" min="7" max="91" value="31" step="2" />
+    </div>
+
+    <div class="ctl-group ctl-slider">
+      <label>聚焦 α <span id="lbl-alpha">—</span></label>
+      <input type="range" id="slider-alpha" min="0" max="90" value="60" step="1" />
+      <button id="btn-focus" class="btn-toggle">单粒子</button>
+    </div>
+
+    <div class="ctl-group ctl-views">
+      <button class="btn-view" data-view="iso" title="立体视角">立体</button>
+      <button class="btn-view" data-view="top" title="俯视 +z 向下看">俯视</button>
+      <button class="btn-view" data-view="front" title="正视 +y 向 -y 看">正视</button>
+      <button class="btn-view" data-view="side" title="侧视 +x 向 -x 看">侧视</button>
+    </div>
+
+    <div class="ctl-group ctl-toggles">
+      <label class="chk"><input type="checkbox" id="chk-trail" checked /> 轨迹</label>
+      <label class="chk"><input type="checkbox" id="chk-fields" checked /> 场矢量</label>
+      <label class="chk"><input type="checkbox" id="chk-screen" checked /> 荧光屏</label>
+      <label class="chk"><input type="checkbox" id="chk-locus" checked /> 落点圆</label>
+    </div>
+  </footer>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <p>正在加载 3D 场景…</p>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
